@@ -1,9 +1,10 @@
 package toGit.migration.sources.ccbase.criteria
 
+import net.praqma.clearcase.ucm.utils.BaselineList
 import toGit.migration.plan.Criteria
 import toGit.migration.plan.Snapshot
 
-class LabelName extends Criteria{
+class LabelName extends Criteria {
 
     String regex
 
@@ -12,7 +13,7 @@ class LabelName extends Criteria{
     }
 
     @Override
-    boolean appliesTo(Snapshot snapshot) {
+    boolean appliesTo(Snapshot snapshot, BaselineList list) {
         return snapshot.identifier =~ regex
     }
 }

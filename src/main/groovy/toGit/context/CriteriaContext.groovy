@@ -1,5 +1,6 @@
 package toGit.context
 
+import net.praqma.clearcase.ucm.utils.BaselineList
 import org.slf4j.LoggerFactory
 import toGit.context.base.Context
 import toGit.context.traits.HasCriteria
@@ -18,11 +19,11 @@ class CriteriaContext implements Context, HasCriteria {
         log.debug("Registering criteria - custom")
         criteria.add(new Criteria() {
             @Override
-            boolean appliesTo(Snapshot snapshot) {
+            boolean appliesTo(Snapshot snapshot, BaselineList list) {
                 log.debug("Testing $snapshot.identifier using custom criteria.")
                 closure.delegate = this
                 closure.resolveStrategy = Closure.DELEGATE_FIRST
-                def result = closure.call(snapshot)
+                def result = closure.call(snapshot, list)
                 log.info("Result: " + (result ? "SUCCESS" : "FAILURE"))
                 return result
             }

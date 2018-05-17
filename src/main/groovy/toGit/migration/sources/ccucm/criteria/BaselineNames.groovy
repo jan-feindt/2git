@@ -1,9 +1,9 @@
 package toGit.migration.sources.ccucm.criteria
 
+import net.praqma.clearcase.ucm.utils.BaselineList
 import org.slf4j.LoggerFactory
 import toGit.migration.plan.Criteria
 import toGit.migration.plan.Snapshot
-import toGit.migration.sources.ccucm.Baseline
 
 class BaselineNames extends Criteria {
 
@@ -20,12 +20,12 @@ class BaselineNames extends Criteria {
     }
 
     @Override
-    boolean appliesTo(Snapshot snapshot) {
-        def baseline = ((Baseline) snapshot).source
+    boolean appliesTo(Snapshot snapshot, BaselineList list) {
+        //def baseline = ((Baseline) snapshot).source
         // String.equals(GString) fails, hence the extra toString
-        def baselineName = "${baseline.shortname}@${baseline.PVob.name}".toString()
-        log.debug("Testing '$baselineName' against baseline list $baselines")
-        def result = baselines.contains(baselineName)
+        //def baselineName = "${baseline.shortname}@${baseline.PVob.name}".toString()
+        log.debug("Testing '$snapshot' against baseline list $baselines")
+        def result = baselines.contains(snapshot.toString())
         log.debug("Result: " + (result ? "MATCH" : "no match"))
         return result
     }

@@ -1,5 +1,6 @@
 package toGit.migration.sources.ccucm.criteria
 
+import net.praqma.clearcase.ucm.utils.BaselineList
 import org.slf4j.LoggerFactory
 import toGit.migration.plan.Criteria
 import toGit.migration.plan.Snapshot
@@ -16,7 +17,7 @@ class PromotionLevels extends Criteria {
     }
 
     @Override
-    boolean appliesTo(Snapshot snapshot) {
+    boolean appliesTo(Snapshot snapshot, BaselineList list) {
         def baseline = ((Baseline) snapshot).source
         log.debug("Testing '${baseline.shortname} (${baseline.promotionLevel})' against promotionLevels '$levels'")
         def result = levels.contains(baseline.promotionLevel.toString())
