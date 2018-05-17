@@ -15,6 +15,9 @@ class NewestOnly extends Criteria {
 
     @Override
     boolean appliesTo(Snapshot snapshot, BaselineList sortedBaselines) {
+        if(sortedBaselines == null) {
+            return true
+        }
         def latest = new Baseline(sortedBaselines.get(0))
         def result = snapshot.equals(latest)
         if(!result) {
