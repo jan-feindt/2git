@@ -98,6 +98,7 @@ PROMOTE = false
 stage('promotion'){
     try {
         timeout(time: 1, unit: 'HOURS') {
+            // TODO: Automate tagging?
             input 'Promote? (Remember to tag!)'
         }
         PROMOTE = true
@@ -113,7 +114,7 @@ if (PROMOTE) {
             deleteDir()
             docker.image('drbosse/gradle-git:4.5.0-jre8-alpine').inside("--entrypoint=''") {
                 unstash 'merge-result'
-                withCredentials([string(credentialsId: '2git-token', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'praqmarelease', variable: 'GITHUB_TOKEN')]) {
                     sh "./gradlew githubRelease --stacktrace -PGITHUB_TOKEN=\$GITHUB_TOKEN"
                 }
             }
