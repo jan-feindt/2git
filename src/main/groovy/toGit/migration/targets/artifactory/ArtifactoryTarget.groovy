@@ -9,7 +9,7 @@ import static org.jfrog.artifactory.client.ArtifactoryClient.create
 
 class ArtifactoryTarget implements MigrationTarget {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     Artifactory client
     ArtifactoryOptions options

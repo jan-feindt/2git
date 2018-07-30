@@ -7,7 +7,7 @@ import toGit.migration.targets.git.GitTarget
 
 class GitTargetContext extends TargetContext {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * GitOptionsContext constructor
@@ -22,7 +22,7 @@ class GitTargetContext extends TargetContext {
      */
     void ignore(String... args) {
         target.options.ignore.addAll(args)
-        log.debug("Added $args to git ignore.")
+        LOG.debug("Added $args to git ignore.")
     }
 
     /**
@@ -31,7 +31,7 @@ class GitTargetContext extends TargetContext {
      */
     void lfs(String... args) {
         target.options.lfs.addAll(args)
-        log.debug("Added $args to git lfs.")
+        LOG.debug("Added $args to git lfs.")
     }
 
     /**
@@ -40,7 +40,7 @@ class GitTargetContext extends TargetContext {
      */
     void user(String user) {
         target.options.user = user
-        log.debug("Set user to $user.")
+        LOG.debug("Set user to $user.")
     }
 
     /**
@@ -49,7 +49,7 @@ class GitTargetContext extends TargetContext {
      */
     void email(String email) {
         target.options.email = email
-        log.debug("Set email to $email.")
+        LOG.debug("Set email to $email.")
     }
 
     /**
@@ -57,7 +57,7 @@ class GitTargetContext extends TargetContext {
      */
     void workspace(String path) {
         target.workspace = path
-        log.debug("Set workspace to $path.")
+        LOG.debug("Set workspace to $path.")
     }
 
     /**
@@ -65,7 +65,7 @@ class GitTargetContext extends TargetContext {
      */
     void longPaths(boolean longPaths = true) {
         target.options.longPaths = longPaths
-        log.debug("Set longPaths for repo.")
+        LOG.debug("Set longPaths for repo.")
     }
 
     /**
@@ -73,6 +73,6 @@ class GitTargetContext extends TargetContext {
      */
     void remote(String remoteUrl) {
         target.options.remote = remoteUrl
-        log.debug("Set remote url to $remoteUrl.")
+        LOG.debug("Set remote url to $remoteUrl.")
     }
 }

@@ -16,7 +16,7 @@ import toGit.migration.sources.ccucm.context.CcucmExtractionsContext
 
 class CcucmSource implements MigrationSource {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     UUID id = UUID.randomUUID()
     CoolSnapshotView migrationView
@@ -50,15 +50,15 @@ class CcucmSource implements MigrationSource {
     @Override
     void cleanup() {
         if (migrationView) {
-            log.info("Cleaning up migration view")
+            LOG.info("Cleaning up migration view")
             migrationView.remove()
             new File(migrationView.path).deleteDir()
-            log.info("Cleaned up migration view")
+            LOG.info("Cleaned up migration view")
         }
         if (migrationStream) {
-            log.info("Cleaning up migration stream")
+            LOG.info("Cleaning up migration stream")
             migrationStream.remove()
-            log.info("Cleaned up migration stream")
+            LOG.info("Cleaned up migration stream")
         }
     }
 
@@ -77,7 +77,7 @@ class CcucmSource implements MigrationSource {
         BaselineFilter baselineFilter = new AggregatedBaselineFilter(criteria)
         def baselines = Cool.getBaselines(component, stream, baselineFilter)
         def baselineCount = baselines.size()
-        log.info("Found $baselineCount baseline(s) matching given requirements: $baselines")
+        LOG.info("Found $baselineCount baseline(s) matching given requirements: $baselines")
         return baselines.collect { bl ->
             new Baseline(bl)
         }

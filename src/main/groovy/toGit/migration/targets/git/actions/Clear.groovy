@@ -5,7 +5,7 @@ import toGit.migration.plan.Action
 
 class Clear extends Action {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     String path
 
@@ -14,12 +14,12 @@ class Clear extends Action {
     }
 
     @Override
-    void act(HashMap<String, Object> extractionMap) {
-        log.debug("Clearing git repository")
+    void act(Map<String, Object> extractionMap) {
+        LOG.debug("Clearing git repository")
         new File(path).listFiles().findAll { !it.name.startsWith(".git") }.each {
             if (it.directory) it.deleteDir()
             else it.delete()
         }
-        log.debug("Cleared git repository")
+        LOG.debug("Cleared git repository")
     }
 }

@@ -6,7 +6,7 @@ import toGit.migration.plan.Snapshot
 
 class BaselineNames extends Criteria {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     List<String> baselines
 
@@ -20,9 +20,9 @@ class BaselineNames extends Criteria {
 
     @Override
     boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {
-        log.debug("Testing '$snapshot' against baseline list $baselines")
+        LOG.debug("Testing '$snapshot' against baseline list $baselines")
         def result = baselines.contains(snapshot.toString())
-        log.debug("Result: " + (result ? "MATCH" : "no match"))
+        LOG.debug("Result: " + (result ? "MATCH" : "no match"))
         return result
     }
 }

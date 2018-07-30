@@ -7,7 +7,7 @@ import toGit.migration.targets.artifactory.ArtifactoryTarget
 
 class ArtifactoryTargetContext extends TargetContext {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     public ArtifactoryTargetContext() {
         target = new ArtifactoryTarget(options: new ArtifactoryOptions())
@@ -15,21 +15,21 @@ class ArtifactoryTargetContext extends TargetContext {
 
     void user(String user) {
         (target as ArtifactoryTarget).options.user = user
-        log.debug("Set user to $user")
+        LOG.debug("Set user to $user")
     }
 
     void password(String password) {
         (target as ArtifactoryTarget).options.password = password
-        log.debug("Set password")
+        LOG.debug("Set password")
     }
 
     void url(String url) {
         (target as ArtifactoryTarget).options.url = url
-        log.debug("Set url to $url")
+        LOG.debug("Set url to $url")
     }
 
     void repository(String repository) {
         (target as ArtifactoryTarget).options.repository = repository
-        log.debug("Set repository to $repository")
+        LOG.debug("Set repository to $repository")
     }
 }

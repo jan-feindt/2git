@@ -13,7 +13,7 @@ import toGit.utils.ExceptionHelper
 @Singleton
 class MigrationManager {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     MigrationSource source
     LinkedHashMap<String, MigrationTarget> targets = []
@@ -42,28 +42,28 @@ class MigrationManager {
             return
         }
         try {
-            log.info("Preparing source")
+            LOG.info("Preparing source")
             source.prepare()
-            log.info("Prepared source")
-            log.info("Preparing targets")
+            LOG.info("Prepared source")
+            LOG.info("Preparing targets")
             targets.values().each { t -> t.prepare() }
-            log.info("Prepared targets")
+            LOG.info("Prepared targets")
             plan.build()
-            log.info("Executing migration plan")
+            LOG.info("Executing migration plan")
             plan.execute()
-            log.info("Executed migration plan")
+            LOG.info("Executed migration plan")
         } catch (Exception e) {
-            log.error('An error occurred during the migration')
+            LOG.error('An error occurred during the migration')
             ExceptionHelper.simpleLog(e)
-            log.error('The migration has been stopped')
+            LOG.error('The migration has been stopped')
             throw e
         } finally {
-            log.info('Cleaning up source')
+            LOG.info('Cleaning up source')
             source.cleanup()
-            log.info('Cleaned up source')
-            log.info('Cleaning up targets')
+            LOG.info('Cleaned up source')
+            LOG.info('Cleaning up targets')
             targets.values().each { t -> t.cleanup() }
-            log.info('Cleaned up targets')
+            LOG.info('Cleaned up targets')
         }
     }
 }

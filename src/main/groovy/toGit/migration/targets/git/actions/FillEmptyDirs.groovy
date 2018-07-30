@@ -5,7 +5,7 @@ import toGit.migration.plan.Action
 
 class FillEmptyDirs extends Action {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     String path
 
@@ -14,10 +14,10 @@ class FillEmptyDirs extends Action {
     }
 
     @Override
-    void act(HashMap<String, Object> extractionMap) {
-        log.info("Sprinkling dummy files in empty directories")
+    void act(Map<String, Object> extractionMap) {
+        LOG.info("Sprinkling dummy files in empty directories")
         sprinkleDummies(new File(path))
-        log.info("Finished sprinkling dummy files")
+        LOG.info("Finished sprinkling dummy files")
     }
 
     def sprinkleDummies(File directory) {
@@ -28,7 +28,7 @@ class FillEmptyDirs extends Action {
                 sprinkleDummies(subDir)
             } else {
                 new File(subDir, ".dummy").createNewFile()
-                log.info("Dropped .dummy file in $subDir")
+                LOG.info("Dropped .dummy file in $subDir")
             }
         }
     }

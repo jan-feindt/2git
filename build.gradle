@@ -5,6 +5,7 @@
 plugins {
     id 'com.palantir.git-version'   version '0.8.0'
     id 'co.riiid.gradle'            version '0.4.2'
+//  id 'codenarc'
 }
 
 apply plugin: 'groovy'

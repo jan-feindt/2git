@@ -6,7 +6,7 @@ import toGit.migration.plan.Action
 
 class Publish extends Action {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     Artifactory client
     String repository
@@ -21,9 +21,9 @@ class Publish extends Action {
     }
 
     @Override
-    void act(HashMap<String, Object> extractionMap) {
-        log.info("Publishing ${file.name} to Artifactory")
+    void act(Map<String, Object> extractionMap) {
+        LOG.info("Publishing ${file.name} to Artifactory")
         client.repository(repository).upload(path, file).doUpload()
-        log.info("Published ${file.name} to Artifactory")
+        LOG.info("Published ${file.name} to Artifactory")
     }
 }

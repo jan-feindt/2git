@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
  */
 class GitUtil {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * Calls Git with given arguments in the set path.
@@ -21,7 +21,7 @@ class GitUtil {
         try {
             callOrDie(path, args)
         } catch (AbnormalProcessTerminationException ex) {
-            log.warn("Command exited with status code $ex.exitValue")
+            LOG.warn("Command exited with status code $ex.exitValue")
             return ex.exitValue
         }
         return 0
@@ -34,9 +34,9 @@ class GitUtil {
      */
     static void callOrDie(File path, String... args) {
         String cmd = "git " + args.join(" ")
-        log.debug("Executing '$cmd' in $path")
+        LOG.debug("Executing '$cmd' in $path")
         CommandLine.newInstance().run(cmd, path).stdoutBuffer.eachLine { line ->
-            log.info(line)
+            LOG.info(line)
         }
     }
 
@@ -47,11 +47,11 @@ class GitUtil {
     static void configureRepository(File path, GitOptions options) {
         if (options.user) {
             callOrDie(path, "config", "user.name", options.user)
-            log.debug("Set git user.name to $options.user.")
+            LOG.debug("Set git user.name to $options.user.")
         }
         if (options.email) {
             callOrDie(path, "config", "user.email", options.email)
-            log.debug("Set git user.email to $options.user.")
+            LOG.debug("Set git user.email to $options.user.")
         }
         if (options.longPaths) {
             callOrDie(path, "config", "core.longpaths", "true")
@@ -95,7 +95,7 @@ class GitUtil {
      */
     static void initRepository(File path) {
         if (!path.exists()) {
-            log.info("Git dir $path does not exist, performing first time setup.")
+            LOG.info("Git dir $path does not exist, performing first time setup.")
             FileUtils.forceMkdir(path)
             callOrDie(path, "init")
         }

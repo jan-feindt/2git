@@ -5,7 +5,7 @@ import toGit.migration.MigrationManager
 
 class PlanBuilder {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * Builds the migration plan for the given source and filters.
@@ -27,9 +27,9 @@ class PlanBuilder {
      * @param filter A top-level filter
      */
     private static void fillMigrationPlan(Map<String, SnapshotPlan> migrationPlan, Filter filter) {
-        log.debug("Retrieving snapshots")
+        LOG.debug("Retrieving snapshots")
         def snapshots = MigrationManager.instance.source.getSnapshots(filter.criteria)
-        log.debug("Retrieved ${snapshots.size()} snapshots")
+        LOG.debug("Retrieved ${snapshots.size()} snapshots")
 
         applyFilter(migrationPlan, snapshots, filter)
     }
@@ -41,14 +41,14 @@ class PlanBuilder {
      * @param filter The filter that will be applied.
      */
     private static void applyFilter(Map<String, SnapshotPlan> migrationPlan, Collection<Snapshot> snapshots, Filter filter) {
-        log.debug("Applying filter to ${snapshots.size()}")
+        LOG.debug("Applying filter to ${snapshots.size()}")
         def matchingSnapshots = snapshots.findAll { snapshot ->
             snapshot.matches(filter.criteria, snapshots)
         }
-        log.debug("Found ${matchingSnapshots.size()} matching snapshots")
+        LOG.debug("Found ${matchingSnapshots.size()} matching snapshots")
         if (!matchingSnapshots) return
 
-        log.debug("Applying ${filter.extractions.size()} extractions and ${filter.actions.size()} actions to ${matchingSnapshots.size()} snapshots")
+        LOG.debug("Applying ${filter.extractions.size()} extractions and ${filter.actions.size()} actions to ${matchingSnapshots.size()} snapshots")
         for (def snapshot : matchingSnapshots) {
             if (!migrationPlan.containsKey(snapshot.identifier))
                 migrationPlan.put(snapshot.identifier, new SnapshotPlan(snapshot))
@@ -57,7 +57,7 @@ class PlanBuilder {
         }
 
         if(!filter.filters) return
-        log.debug("Applying subfilters")
+        LOG.debug("Applying subfilters")
         for (def childFilter : filter.filters) {
             applyFilter(migrationPlan, matchingSnapshots, childFilter)
         }

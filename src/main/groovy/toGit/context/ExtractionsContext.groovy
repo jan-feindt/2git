@@ -6,7 +6,7 @@ import toGit.migration.plan.Snapshot
 
 class ExtractionsContext implements Context {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     final List<Extraction> extractions = []
 
@@ -15,7 +15,7 @@ class ExtractionsContext implements Context {
      * @param closure Closure to run
      */
     void custom(Closure<HashMap<String, Object>> closure) {
-        log.debug("Registering extraction - custom")
+        LOG.debug("Registering extraction - custom")
         extractions.add(new Extraction() {
             @Override
             HashMap<String, Object> extract(Snapshot snapshot) {
@@ -24,6 +24,6 @@ class ExtractionsContext implements Context {
                 return closure.call(snapshot)
             }
         })
-        log.debug("Registered extraction - custom")
+        LOG.debug("Registered extraction - custom")
     }
 }

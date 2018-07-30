@@ -7,7 +7,7 @@ import toGit.migration.targets.git.GitUtil
 
 class Setup extends Action {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     File path
     GitOptions options
@@ -18,10 +18,10 @@ class Setup extends Action {
     }
 
     @Override
-    void act(HashMap<String, Object> extractionMap) {
-        log.info("Initializing Git repository: $path")
+    void act(Map<String, Object> extractionMap) {
+        LOG.info("Initializing Git repository: $path")
         GitUtil.initRepository(path)
         GitUtil.configureRepository(path, options)
-        log.info("Initialized Git repository")
+        LOG.info("Initialized Git repository")
     }
 }

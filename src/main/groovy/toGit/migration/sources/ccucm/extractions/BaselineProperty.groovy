@@ -7,7 +7,7 @@ import toGit.migration.sources.ccucm.Baseline
 
 class BaselineProperty extends Extraction {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     Map<String, String> map
 
@@ -19,9 +19,9 @@ class BaselineProperty extends Extraction {
     HashMap<String, Object> extract(Snapshot snapshot) {
         def result = [:]
         map.each { propertyName ->
-            log.debug("Extracting baseline property '${propertyName.value}'")
+            LOG.debug("Extracting baseline property '${propertyName.value}'")
             def value = ((Baseline) snapshot).source."$propertyName.value"
-            log.debug("Extracted value ${value}")
+            LOG.debug("Extracted value ${value}")
             result.put(propertyName.key, value)
         }
         return result

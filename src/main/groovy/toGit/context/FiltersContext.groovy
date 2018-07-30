@@ -7,7 +7,7 @@ import static ContextHelper.executeInContext
 
 class FiltersContext implements Context {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     List<Filter> filters = []
 
@@ -16,10 +16,10 @@ class FiltersContext implements Context {
      * @param closure the Filter configuration
      */
     void filter(@DslContext(FilterContext) Closure closure) {
-        log.debug("Entering filter block")
+        LOG.debug("Entering filter block")
         def filterContext = new FilterContext()
         executeInContext(closure, filterContext)
         filters.add(filterContext.filter)
-        log.debug("Exiting filter block")
+        LOG.debug("Exiting filter block")
     }
 }

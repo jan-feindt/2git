@@ -6,7 +6,7 @@ class Run extends Script {
         new Executor().execute(args)
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         new Executor().execute(args)
     }
 }

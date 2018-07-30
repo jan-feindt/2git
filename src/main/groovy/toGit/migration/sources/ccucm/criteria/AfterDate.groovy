@@ -7,7 +7,7 @@ import toGit.migration.sources.ccucm.Baseline
 
 class AfterDate extends Criteria {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     Date date
 
@@ -22,9 +22,9 @@ class AfterDate extends Criteria {
     @Override
     boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {
         def baseline = ((Baseline) snapshot).source
-        log.debug("Testing '${baseline.shortname} (${baseline.date})' against date '${date}'")
+        LOG.debug("Testing '${baseline.shortname} (${baseline.date})' against date '${date}'")
         def result = baseline.date > date
-        log.debug("Result: " + (result ? "MATCH" : "no match"))
+        LOG.debug("Result: " + (result ? "MATCH" : "no match"))
         return result
     }
 }

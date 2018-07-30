@@ -8,7 +8,7 @@ import toGit.migration.MigrationManager
  */
 class MigrationPlan {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     List<Filter> filters = []
 
@@ -20,10 +20,10 @@ class MigrationPlan {
      * Builds the migration plan using predefined filters
      */
     void build() {
-        log.debug("Building migration plan")
+        LOG.debug("Building migration plan")
         steps = PlanBuilder.buildMigrationPlan(filters)
-        log.debug("Built migration plan")
-        log.info("Constructed a migration plan for ${steps.size()} snapshots")
+        LOG.debug("Built migration plan")
+        LOG.info("Constructed a migration plan for ${steps.size()} snapshots")
     }
 
     /**
@@ -32,48 +32,48 @@ class MigrationPlan {
     void execute() {
         def extractionMap = [:]
 
-        log.info("Executing pre-migration actions")
+        LOG.info("Executing pre-migration actions")
         befores.each { action ->
-            log.info("Executing ${action.class.simpleName}")
+            LOG.info("Executing ${action.class.simpleName}")
             action.act(extractionMap)
-            log.info("Executed ${action.class.simpleName}")
+            LOG.info("Executed ${action.class.simpleName}")
         }
-        log.info("Executed pre-migration actions")
+        LOG.info("Executed pre-migration actions")
 
-        log.info("Executing migration")
+        LOG.info("Executing migration")
         steps.values().each { step ->
-            log.info("Migrating $step: ${step.extractions.size()} extractions, ${step.actions.size()} actions")
+            LOG.info("Migrating $step: ${step.extractions.size()} extractions, ${step.actions.size()} actions")
 
-            log.info("Checking out $step")
+            LOG.info("Checking out $step")
             MigrationManager.instance.source.checkout(step.snapshot)
-            log.info("Checked out $step")
+            LOG.info("Checked out $step")
 
-            log.info("Executing extractions for $step")
+            LOG.info("Executing extractions for $step")
             step.extractions.each { extraction ->
-                log.info("Executing ${extraction.class.simpleName}")
+                LOG.info("Executing ${extraction.class.simpleName}")
                 extraction.extract(step.snapshot).entrySet().each { kv ->
                     extractionMap.put(kv.key, kv.value)
                 }
-                log.info("Executed ${extraction.class.simpleName}")
+                LOG.info("Executed ${extraction.class.simpleName}")
             }
-            log.info("Executed extractions for $step")
+            LOG.info("Executed extractions for $step")
 
-            log.info("Executing actions for $step")
+            LOG.info("Executing actions for $step")
             step.actions.each { action ->
-                log.info("Executing ${action.class.simpleName}")
+                LOG.info("Executing ${action.class.simpleName}")
                 action.act(extractionMap)
-                log.info("Executed ${action.class.simpleName}")
+                LOG.info("Executed ${action.class.simpleName}")
             }
-            log.info("Executed actions for $step")
+            LOG.info("Executed actions for $step")
         }
-        log.info("Executed migration")
+        LOG.info("Executed migration")
 
-        log.info("Executing post-migration actions")
+        LOG.info("Executing post-migration actions")
         afters.each { action ->
-            log.info("Executing ${action.class.simpleName}")
+            LOG.info("Executing ${action.class.simpleName}")
             action.act(extractionMap)
-            log.info("Executed ${action.class.simpleName}")
+            LOG.info("Executed ${action.class.simpleName}")
         }
-        log.info("Executed post-migration actions")
+        LOG.info("Executed post-migration actions")
     }
 }

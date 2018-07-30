@@ -5,7 +5,7 @@ import toGit.context.SourceContext
 import toGit.migration.sources.ccbase.ClearCaseSource
 
 class ClearCaseSourceContext extends SourceContext {
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     public ClearCaseSourceContext() {
         source = new ClearCaseSource()

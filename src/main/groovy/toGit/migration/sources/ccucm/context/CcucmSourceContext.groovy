@@ -8,7 +8,7 @@ import toGit.migration.sources.ccucm.CcucmSource
 
 class CcucmSourceContext extends SourceContext {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     public CcucmSourceContext() {
         source = new CcucmSource(options: new CcucmOptions())
@@ -20,7 +20,7 @@ class CcucmSourceContext extends SourceContext {
      */
     void stream(String streamName) {
         source.options.stream = streamName
-        log.debug("Set stream to $streamName.")
+        LOG.debug("Set stream to $streamName.")
     }
 
     /**
@@ -29,7 +29,7 @@ class CcucmSourceContext extends SourceContext {
      */
     void component(String componentName) {
         source.options.component = componentName
-        log.debug("Set component to $componentName.")
+        LOG.debug("Set component to $componentName.")
     }
 
     /**
@@ -39,13 +39,13 @@ class CcucmSourceContext extends SourceContext {
     void loadComponents(String target) {
         if (target.equalsIgnoreCase('all')) {
             source.options.loadComponents = SnapshotView.Components.ALL
-            log.debug("Set loadComponents to $target.")
+            LOG.debug("Set loadComponents to $target.")
         } else if (target.equalsIgnoreCase('modifiable')) {
             source.options.loadComponents = SnapshotView.Components.MODIFIABLE
-            log.debug("Set loadComponents to $target.")
+            LOG.debug("Set loadComponents to $target.")
         } else {
             def message = "Invalid ClearCase component target '$target'. Expected 'all' or 'modifiable'."
-            log.error(message)
+            LOG.error(message)
             throw new Exception(message)
         }
     }
@@ -57,7 +57,7 @@ class CcucmSourceContext extends SourceContext {
      */
     void migrationProject(String projectName) {
         source.options.migrationProject = projectName
-        log.debug("Set migrationProject to $projectName.")
+        LOG.debug("Set migrationProject to $projectName.")
     }
 
     /**
@@ -67,7 +67,7 @@ class CcucmSourceContext extends SourceContext {
      */
     void readOnlyMigrationStream(boolean readOnly = true) {
         source.options.readOnlyMigrationStream = readOnly
-        log.debug("Set readOnlyMigrationStream to $readOnly.")
+        LOG.debug("Set readOnlyMigrationStream to $readOnly.")
     }
 
     /**
@@ -75,6 +75,6 @@ class CcucmSourceContext extends SourceContext {
      */
     void workspace(String path) {
         source.workspace = path
-        log.debug("Set workspace to $path.")
+        LOG.debug("Set workspace to $path.")
     }
 }

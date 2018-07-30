@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 
 class CcucmStringHelper {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * Takes a ClearCase element name and splits it up into identifier, tag and vobName.
@@ -21,7 +21,7 @@ class CcucmStringHelper {
         def matcher = name =~ regex
         if (matcher.matches()) {
             def result = ['identifier': matcher.group(1), 'tag': matcher.group(2), 'vob': matcher.group(3)]
-            log.debug("Parse result: $result")
+            LOG.debug("Parse result: $result")
             return result
         }
         throw new IllegalArgumentException("Failed to parse name: " + name)

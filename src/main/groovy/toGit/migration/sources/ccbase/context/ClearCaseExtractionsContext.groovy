@@ -6,7 +6,7 @@ import toGit.context.Context
 import toGit.migration.sources.ccbase.extractions.LabelExtraction
 
 trait ClearCaseExtractionsContext implements Context {
-    final static Logger log = LoggerFactory.getLogger(this.class)
+    final static Logger LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * Maps the Label to the given key
@@ -14,6 +14,6 @@ trait ClearCaseExtractionsContext implements Context {
      */
     void label(String key) {
         extractions.add(new LabelExtraction(key))
-        log.debug("Added 'label' extraction")
+        LOG.debug("Added 'label' extraction")
     }
 }

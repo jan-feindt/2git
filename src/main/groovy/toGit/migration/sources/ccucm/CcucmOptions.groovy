@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory
 
 class CcucmOptions {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     String stream
     String component
@@ -27,7 +27,7 @@ class CcucmOptions {
 
     public void configCheck(){
         if(readOnlyMigrationStream && loadComponents == SnapshotView.Components.MODIFIABLE) {
-            log.warn("Migrating modifiable components in combination with read-only migration streams can cause unexpected behaviour")
+            LOG.warn("Migrating modifiable components in combination with read-only migration streams can cause unexpected behaviour")
         }
     }
 }

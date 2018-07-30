@@ -7,7 +7,7 @@ import toGit.migration.sources.ccucm.Baseline
 
 class PromotionLevels extends Criteria {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     String[] levels
 
@@ -18,9 +18,9 @@ class PromotionLevels extends Criteria {
     @Override
     boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {
         def baseline = ((Baseline) snapshot).source
-        log.debug("Testing '${baseline.shortname} (${baseline.promotionLevel})' against promotionLevels '$levels'")
+        LOG.debug("Testing '${baseline.shortname} (${baseline.promotionLevel})' against promotionLevels '$levels'")
         def result = levels.contains(baseline.promotionLevel.toString())
-        log.debug("Result: " + (result ? "MATCH" : "no match"))
+        LOG.debug("Result: " + (result ? "MATCH" : "no match"))
         return result
     }
 }

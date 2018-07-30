@@ -6,7 +6,7 @@ import toGit.migration.plan.Snapshot
 
 class NewestOnly extends Criteria {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     @Override
     boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {

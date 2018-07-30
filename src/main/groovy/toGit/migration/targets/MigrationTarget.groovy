@@ -7,7 +7,7 @@ import toGit.migration.plan.Action
 
 trait MigrationTarget {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * The workspace where target contents will be copied to
@@ -31,6 +31,6 @@ trait MigrationTarget {
      */
     void addAction(String name, Action action) {
         ((ActionsContext) MigrationManager.instance.actionsContext).actions.add(action)
-        log.debug("Registered action '$name'")
+        LOG.debug("Registered action '$name'")
     }
 }

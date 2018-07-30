@@ -11,14 +11,14 @@ import toGit.migration.sources.ccucm.criteria.NewestOnly
 import toGit.migration.sources.ccucm.criteria.PromotionLevels
 
 trait CcucmCriteriaContext implements Context {
-    final static Logger log = LoggerFactory.getLogger(this.class)
+    final static Logger LOG = LoggerFactory.getLogger(this.class)
 
     /**
      * Only include the newest baseline in stream
      */
     void newestOnly() {
         criteria.add(new NewestOnly())
-        log.debug("Added 'newestOnly' criteria")
+        LOG.debug("Added 'newestOnly' criteria")
     }
 
     /**
@@ -27,7 +27,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void afterBaseline(String name) {
         criteria.add(new AfterDate(CoolBaseline.get(name).date))
-        log.debug("Added 'afterBaseline' criteria.")
+        LOG.debug("Added 'afterBaseline' criteria.")
     }
 
     /**
@@ -37,7 +37,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void afterDate(String format, String date) {
         criteria.add(new AfterDate(format, date))
-        log.debug("Added 'afterDate' criteria.")
+        LOG.debug("Added 'afterDate' criteria.")
     }
 
     /**
@@ -46,7 +46,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void afterDate(Date date) {
         criteria.add(new AfterDate(date))
-        log.debug("Added 'afterDate' criteria.")
+        LOG.debug("Added 'afterDate' criteria.")
     }
 
     /**
@@ -55,7 +55,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void baselineName(String regex) {
         criteria.add(new BaselineName(regex))
-        log.debug("Added 'baselineName' criteria.")
+        LOG.debug("Added 'baselineName' criteria.")
     }
 
     /**
@@ -64,7 +64,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void baselineNames(String... names) {
         criteria.add(new BaselineNames(names))
-        log.debug("Added 'baselineNames' criteria.")
+        LOG.debug("Added 'baselineNames' criteria.")
     }
 
     /**
@@ -73,7 +73,7 @@ trait CcucmCriteriaContext implements Context {
      */
     void baselineNames(List<String> names) {
         criteria.add(new BaselineNames(names))
-        log.debug("Added 'baselineNames' criteria.")
+        LOG.debug("Added 'baselineNames' criteria.")
     }
 
     /**
@@ -82,6 +82,6 @@ trait CcucmCriteriaContext implements Context {
      */
     void promotionLevels(String... levels) {
         criteria.add(new PromotionLevels(levels))
-        log.debug("Added 'promotionLevels' criteria.")
+        LOG.debug("Added 'promotionLevels' criteria.")
     }
 }

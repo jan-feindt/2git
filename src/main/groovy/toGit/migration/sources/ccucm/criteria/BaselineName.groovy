@@ -7,7 +7,7 @@ import toGit.migration.sources.ccucm.Baseline
 
 class BaselineName extends Criteria {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     String regex
 
@@ -18,10 +18,10 @@ class BaselineName extends Criteria {
     @Override
     boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {
         def baseline = ((Baseline) snapshot).source
-        log.debug("Testing '${baseline.shortname}' against regex '${regex}'")
+        LOG.debug("Testing '${baseline.shortname}' against regex '${regex}'")
         def matcher = baseline.shortname =~ regex
         def result = matcher.matches()
-        log.debug("Result: " + (result ? "MATCH" : "no match"))
+        LOG.debug("Result: " + (result ? "MATCH" : "no match"))
         return result
     }
 }

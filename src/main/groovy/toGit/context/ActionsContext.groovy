@@ -10,7 +10,7 @@ import toGit.utils.FileHelper
 
 class ActionsContext implements Context {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     final List<Action> actions = []
 
@@ -25,21 +25,22 @@ class ActionsContext implements Context {
      * Copies the contents of the source directory to the target directory.
      */
     void copy(String source, String target) {
-        log.debug("Registering action - copy")
+        LOG.debug('Registering action - copy')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
-                def sourceDir = new File(source)
-                def targetDir = new File(target)
+            void act(Map<String, Object> extractionMap) {
+                File sourceDir = new File(source)
+                File targetDir = new File(target)
                 sourceDir.listFiles().each { file ->
-                    if (file.isDirectory())
+                    if (file.isDirectory()) {
                         FileUtils.copyDirectoryToDirectory(file, targetDir)
-                    else
+                    } else {
                         FileUtils.copyFileToDirectory(file, targetDir)
+                    }
                 }
             }
         })
-        log.debug("Registered action - copy")
+        LOG.debug('Registered action - copy')
     }
 
     /**
@@ -53,21 +54,22 @@ class ActionsContext implements Context {
      * Moves the contents of the source directory to the target directory.
      */
     void move(String source, String target) {
-        log.debug("Registering action - move")
+        LOG.debug('Registering action - move')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
-                def sourceDir = new File(source)
-                def targetDir = new File(target)
+            void act(Map<String, Object> extractionMap) {
+                File sourceDir = new File(source)
+                File targetDir = new File(target)
                 sourceDir.listFiles().each { file ->
-                    if (file.isDirectory())
+                    if (file.isDirectory()) {
                         FileUtils.moveDirectoryToDirectory(file, targetDir, true)
-                    else
+                    } else {
                         FileUtils.moveFileToDirectory(file, targetDir, true)
+                    }
                 }
             }
         })
-        log.debug("Registered action - copy")
+        LOG.debug('Registered action - move')
     }
 
     /**
@@ -84,17 +86,17 @@ class ActionsContext implements Context {
      * @param path the path to execute the command in
      */
     void cmd(String command, String path) {
-        log.debug("Registering action - cmd")
+        LOG.debug('Registering action - cmd')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
-                def expandedCommand = new SimpleTemplateEngine().createTemplate(command).make(extractionMap).toString()
-                CommandLine.newInstance().run(expandedCommand, path ? new File(path) : null).stdoutBuffer.eachLine { line ->
-                    log.info(line)
+            void act(Map<String, Object> extractionMap) {
+                String expandedCmd = new SimpleTemplateEngine().createTemplate(command).make(extractionMap).toString()
+                CommandLine.newInstance().run(expandedCmd, path ? new File(path) : null).stdoutBuffer.eachLine { line ->
+                    LOG.info(line)
                 }
             }
         })
-        log.debug("Registered action - cmd")
+        LOG.debug('Registered action - cmd')
     }
 
     /**
@@ -102,27 +104,27 @@ class ActionsContext implements Context {
      * @param closure the closure to run
      */
     void custom(Closure closure) {
-        log.debug("Registering action - custom")
+        LOG.debug('Registering action - custom')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
+            void act(Map<String, Object> extractionMap) {
                 closure.delegate = this
                 closure.resolveStrategy = Closure.DELEGATE_FIRST
                 closure.call(extractionMap)
             }
         })
-        log.debug("Registered action - custom")
+        LOG.debug('Registered action - custom')
     }
 
     void emptyDir(String dir) {
-        log.debug("Registering action - emptyDir")
+        LOG.debug('Registering action - emptyDir')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
+            void act(Map<String, Object> extractionMap) {
                 FileHelper.emptyDirectory(new File(dir))
             }
         })
-        log.debug("Registered action - emptyDir")
+        LOG.debug('Registered action - emptyDir')
     }
 
     /**
@@ -131,16 +133,16 @@ class ActionsContext implements Context {
      * @param amount the amount of times to flatten the directory structure
      */
     void flattenDir(String dir, int amount) {
-        log.debug("Registering action - flattenDir")
+        LOG.debug('Registering action - flattenDir')
         actions.add(new Action() {
             @Override
-            void act(HashMap<String, Object> extractionMap) {
+            void act(Map<String, Object> extractionMap) {
                 amount.times {
                     FileHelper.singleFlattenDirectory(new File(dir))
                 }
             }
         })
-        log.debug("Registered action - flattenDir")
+        LOG.debug('Registered action - flattenDir')
     }
 
     /**
@@ -150,8 +152,8 @@ class ActionsContext implements Context {
      * @param args the arguments the method was called with
      */
     void methodMissing(String name, Object args) {
-        log.warn("Could not find action '$name' with arguments '$args', attempting to register as a plain command")
-        def arguments = args.join()
+        LOG.warn("Could not find action '$name' with arguments '$args', attempting to register as a plain command")
+        String arguments = args.join()
         cmd("$name $arguments")
     }
 }

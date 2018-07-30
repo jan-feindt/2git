@@ -6,7 +6,7 @@ import toGit.migration.plan.Snapshot
 
 class CriteriaContext implements Context {
 
-    final static log = LoggerFactory.getLogger(this.class)
+    final static LOG = LoggerFactory.getLogger(this.class)
 
     final List<Criteria> criteria = []
 
@@ -15,18 +15,18 @@ class CriteriaContext implements Context {
      * @param closure Closure to run
      */
     void custom(Closure<Boolean> closure) {
-        log.debug("Registering criteria - custom")
+        LOG.debug("Registering criteria - custom")
         criteria.add(new Criteria() {
             @Override
             boolean appliesTo(Snapshot snapshot, List<Snapshot> allSnapshots) {
-                log.debug("Testing $snapshot.identifier using custom criteria.")
+                LOG.debug("Testing $snapshot.identifier using custom criteria.")
                 closure.delegate = this
                 closure.resolveStrategy = Closure.DELEGATE_FIRST
                 def result = closure.call(snapshot, allSnapshots)
-                log.info("Result: " + (result ? "SUCCESS" : "FAILURE"))
+                LOG.info("Result: " + (result ? "SUCCESS" : "FAILURE"))
                 return result
             }
         })
-        log.debug("Registered criteria - custom")
+        LOG.debug("Registered criteria - custom")
     }
 }
